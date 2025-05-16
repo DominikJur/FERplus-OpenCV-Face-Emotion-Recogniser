@@ -135,7 +135,6 @@ python main.py
 | Metric | Value |
 |--------|-------|
 | Accuracy | 78%+ |
-| Previous FER Model | ~62% |
 | Inference Time | Real-time |
 | Model Size | ~44MB |
 
