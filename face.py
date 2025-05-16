@@ -6,34 +6,28 @@ import torch.nn as nn
 from torchvision import models
 from torchvision import transforms
 from PIL import Image
-import timm
+from dataset import EMOTIONS_TO_IDX, data_transforms
+import warnings
 
+warnings.filterwarnings("ignore", category=UserWarning)
 
-emotion_labels = ["angry", "disgust", "fear", "happy", "sad", "surprise", "neutral"]
+transform = data_transforms["test"]
+
+emotion_labels = {v: k for k, v in EMOTIONS_TO_IDX.items()}
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model = models.resnet18(pretrained=True)
+num_classes = len(EMOTIONS_TO_IDX.values())
+model.fc = nn.Linear(model.fc.in_features, num_classes)
+model = model.to(device)
+model.load_state_dict(
+    torch.load("ResNet_epoch_66.pth", map_location=torch.device("cpu"))
+)
+print("Model loaded successfully")
 
-
-class PlaceholderModel(nn.Module):
-    def __init__(self, num_emotions=7):
-        super(PlaceholderModel, self).__init__()
-        self.num_emotions = num_emotions
-
-    def forward(self, x):
-        return torch.zeros(x.size(0), self.num_emotions).to(device)
-
-
-model = PlaceholderModel(num_emotions=len(emotion_labels)).to(device)
 
 model.eval()
 
-transform = transforms.Compose(
-    [
-        transforms.Resize((224, 224)),  # resnet input size
-        transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-    ]
-)
 face_cascade = cv2.CascadeClassifier(
     cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
 )
@@ -62,10 +56,10 @@ while True:
         cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
 
         face_img = frame[y : y + h, x : x + w]
-        face_img = cv2.resize(face_img, (224, 224))
-        face_img = face_img.transpose((2, 0, 1))
-        face_img = torch.FloatTensor(face_img).unsqueeze(0)
-        face_img = face_img / 255.0
+        face_img = cv2.cvtColor(face_img, cv2.COLOR_BGR2RGB)
+        face_img = Image.fromarray(face_img)
+        face_img = transform(face_img)
+        face_img = face_img.unsqueeze(0)
         face_img = face_img.to(device)
 
         with torch.no_grad():
