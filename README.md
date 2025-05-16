@@ -126,7 +126,6 @@ python main.py
   - Adam optimizer (lr=0.001)
   - Cross-Entropy Loss function
 - **Input Processing**:
-  - 48×48 RGB images
   - Data augmentation: horizontal flips, rotations, normalization
 - **Output**: 7-class emotion classification with confidence scores
 
