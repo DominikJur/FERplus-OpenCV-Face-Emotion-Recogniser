@@ -1,7 +1,19 @@
-# 😀 Facial Emotion Recognition
+# Facial Emotion Recognition 😊😠😢
 
-A real-time facial emotion recognition system that uses computer vision and deep learning to detect and classify facial expressions into seven basic emotions.
+<div align="center">
 
+![Python](https://img.shields.io/badge/Python-3.6+-blue.svg?style=for-the-badge&logo=python&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-1.7+-ee4c2c.svg?style=for-the-badge&logo=pytorch&logoColor=white)
+![OpenCV](https://img.shields.io/badge/OpenCV-4.0+-5C3EE8.svg?style=for-the-badge&logo=opencv&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)
+![Accuracy](https://img.shields.io/badge/Accuracy-78%25+-yellow.svg?style=for-the-badge)
+
+</div>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/pytorch/pytorch.github.io/master/assets/images/pytorch-logo.png" width="120px"/>
+  <img src="https://opencv.org/wp-content/uploads/2020/07/OpenCV_logo_black-2.png" width="120px"/>
+</p>
 ## 📸 Demo
 
 ![Facial Emotion Recognition - Happy](demo/happy.png)
@@ -12,143 +24,134 @@ A real-time facial emotion recognition system that uses computer vision and deep
 
 ![Facial Emotion Recognition - Multiple](demo/multi.png)
 *Detecting emotions for multiple people simultaneously*
-## Overview
+## 📋 Overview
 
-This project uses a pre-trained ResNet18 model and OpenCV to recognize facial emotions in real-time from a webcam feed. The system can detect faces and classify emotions with reasonable accuracy.
+A real-time facial emotion recognition system powered by deep learning. This application detects faces and classifies emotions in real-time video streams. Our model is trained on the RAF-DB dataset and achieves 78%+ accuracy, significantly outperforming our previous FER2013-based implementation.
 
-### ✨ Features
+## ✨ Features
 
-- Real-time facial emotion detection from webcam
-- Classification of 7 basic emotions: angry, disgust, fear, happy, neutral, sad, surprise
-- Pre-trained ResNet18 model (61.81% accuracy on test set)
-- User-friendly interface with emotion labels and confidence scores
+- 🎦 Real-time emotion recognition from webcam feed
+- 🧠 Advanced ResNet-18 architecture pre-trained on ImageNet
+- 🎭 Classification of 7 universal emotions (surprise, fear, disgust, happy, sad, angry, neutral)
+- 📊 Live confidence scores for detected emotions
+- ⚡ Optimized performance on standard hardware
 
 ## 📂 Project Structure
 
 ```
-├── data/                  # Dataset directory
-│   ├── train/             # Training data organized by emotion folders
-│   └── test/              # Test data organized by emotion folders
-├── models/                # Saved model weights
-│   └── ResNet_epoch_66.pth # Pre-trained model
-├── notebooks/             # Jupyter notebooks
-│   └── training.ipynb     # Model training notebook
-├── src/                   # Source code
-│   ├── dataset.py         # Dataset class and data loaders
-│   ├── face.py            # Face detection and emotion recognition
-│   └── utils.py           # Utility functions
-├── main.py                # Main application script
-├── .gitignore             # Git ignore file
-├── LICENSE                # MIT License
-└── README.md              # Project documentation
+├── data/                      # Dataset directory
+│   └── DATASET/
+│       ├── test/              # Test data split by emotion classes
+│       └── train/             # Training data split by emotion classes
+├── models/                    # Saved model weights
+│   └── ResNet_epoch_50.pth    # Pre-trained model
+├── src/
+│   ├── dataset.py             # Dataset loading and preprocessing
+│   ├── face.py                # Face detection and emotion recognition
+│   └── utils.py               # Utility functions
+├── notebooks/
+│   └── training.ipynb         # Model training notebook
+├── main.py                    # Main application script
+├── README.md                  # Project documentation
+└── LICENSE                    # MIT License
 ```
 
-## Requirements
+## 📊 Dataset Information
 
-- Python 3.6+
-- PyTorch
-- torchvision
-- OpenCV
-- NumPy
-- Matplotlib
-- scikit-learn
-- PIL (Pillow)
-- tqdm
+This project uses the **RAF-DB** (Real-world Affective Faces Database), containing facial images labeled with 7 basic emotions.
 
-## 🔧 Installation
-
-1. Clone the repository:
-   ```
-   git clone https://github.com/yourusername/facial-emotion-recognition.git
-   cd facial-emotion-recognition
-   ```
-
-2. Create a virtual environment (optional but recommended):
-   ```
-   python -m venv venv
-   source venv/bin/activate  # On Windows, use: venv\Scripts\activate
-   ```
-
-3. Install the dependencies:
-   ```
-   pip install torch torchvision opencv-python numpy matplotlib scikit-learn pillow tqdm
-   ```
-
-## 🚀 Usage
-
-1. Run the main application to start facial emotion recognition with your webcam:
-   ```
-   python main.py
-   ```
-
-2. The application will open your webcam and start detecting faces and emotions in real-time.
-
-3. Press 'q' to quit the application.
-
-## Dataset
-
-This project uses the FER2013 dataset or a similar facial emotion dataset organized in the following structure:
+### Dataset Structure
 
 ```
 data/
-├── train/
-│   ├── angry/
-│   ├── disgust/
-│   ├── fear/
-│   ├── happy/
-│   ├── neutral/
-│   ├── sad/
-│   └── surprise/
-└── test/
-    ├── angry/
-    ├── disgust/
-    ├── fear/
-    ├── happy/
-    ├── neutral/
-    ├── sad/
-    └── surprise/
+└── DATASET/
+    ├── test/
+    │   ├── 1/  # surprise
+    │   ├── 2/  # fear
+    │   ├── 3/  # disgust
+    │   ├── 4/  # happy
+    │   ├── 5/  # sad
+    │   ├── 6/  # angry
+    │   └── 7/  # neutral
+    └── train/
+        ├── 1/
+        ├── 2/
+        ├── 3/
+        ├── 4/
+        ├── 5/
+        ├── 6/
+        └── 7/
 ```
 
-Each subfolder contains facial images expressing the corresponding emotion.
+## 🚀 Installation & Setup
 
-## 🧠 Model
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/DominikJur/PyTorch-OpenCV-Facial-Expression-Recogniser.git
+   cd PyTorch-OpenCV-Facial-Expression-Recogniser
+   ```
 
-The system uses a pre-trained ResNet18 model modified for emotion classification:
+2. **Create and activate a virtual environment:**
+   ```bash
+   python -m venv venv
+   # On Windows:
+   venv\Scripts\activate
+   # On Unix or MacOS:
+   source venv/bin/activate
+   ```
 
-- Base model: ResNet18 pre-trained on ImageNet
-- Final layer replaced to output 7 emotion classes
-- Trained on facial emotion dataset
-- Current test accuracy: 61.81%
+3. **Install dependencies:**
+   ```bash
+   pip install torch torchvision opencv-python pillow scikit-learn matplotlib tqdm
+   ```
 
-## Training
 
-If you want to train the model yourself, you can run the Jupyter notebook:
+## 🎮 Usage
 
+Run the main application for real-time webcam-based emotion recognition:
+
+```bash
+python main.py
 ```
-jupyter notebook notebooks/training.ipynb
-```
 
-The notebook contains code to:
-1. Load and preprocess the dataset
-2. Create and configure the model
-3. Train the model
-4. Evaluate the model's performance
+- Press 'q' to exit the application
 
-## License
+## 🧠 Model Architecture
 
-This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Acknowledgments
+- **Base Architecture**: ResNet-18 (pre-trained on ImageNet)
+- **Training Methodology**:
+  - Fine-tuned on RAF-DB dataset
+  - 50+ epochs of training
+  - Adam optimizer (lr=0.001)
+  - Cross-Entropy Loss function
+- **Input Processing**:
+  - 48×48 RGB images
+  - Data augmentation: horizontal flips, rotations, normalization
+- **Output**: 7-class emotion classification with confidence scores
 
-- The ResNet18 implementation is based on the torchvision library
-- Face detection uses OpenCV's Haar Cascade Classifier
+## 📈 Performance Metrics
 
-## 🤔 How It Works
+| Metric | Value |
+|--------|-------|
+| Accuracy | 78%+ |
+| Previous FER Model | ~62% |
+| Inference Time | Real-time |
+| Model Size | ~44MB |
 
-1. Capture frames from webcam
-2. Detect faces using OpenCV's Haar Cascade
-3. Extract face region from image
-4. Preprocess the face (resize, normalize)
-5. Feed the face image to the ResNet18 model
-6. Get emotion prediction and confidence score
-7. Display result with bounding box and emotion label
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- RAF-DB dataset providers
+- PyTorch and OpenCV communities
+- Academic research on facial emotion recognition
+
+---
+
+<div align="center">
+  <b>Made with ❤️ by Dominik Jur</b>
+</div>
