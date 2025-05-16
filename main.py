@@ -4,7 +4,7 @@ warnings.filterwarnings("ignore", category=UserWarning)
 import cv2
 import torch
 
-from src.dataset import EMOTIONS_TO_IDX, data_transforms
+from src.dataset_RAF_DB import EMOTIONS_TO_IDX, data_transforms
 from src.utils import get_model
 from src.face import recognize_expression
 

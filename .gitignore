@@ -6,8 +6,11 @@ __pycache__/
 # C extensions
 *.so
 
+models/ResNet_epoch_66.pth
+
 #data FER
 data_FER/
+dataset_FER.py
 # Distribution / packaging
 .Python
 build/

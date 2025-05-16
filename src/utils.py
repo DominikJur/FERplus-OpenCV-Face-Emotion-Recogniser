@@ -8,7 +8,7 @@ from torchvision import models
 from tqdm import tqdm
 
 
-CURRENT_BEST_MODEL_PATH = "models\\ResNet_epoch_66.pth"
+CURRENT_BEST_MODEL_PATH = "models\\ResNet_epoch_50.pth"
 
 def get_model(num_classes, device, path=CURRENT_BEST_MODEL_PATH):
     """

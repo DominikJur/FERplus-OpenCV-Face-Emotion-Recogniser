@@ -6,11 +6,8 @@ import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-# Assuming folders 1-7 correspond to emotions in this order
-# (You might need to adjust based on your specific dataset)
-EMOTIONS = ["angry", "disgust", "fear", "happy", "neutral", "sad", "surprise"]
+EMOTIONS = ["surprise", "fear", "disgust", "happy", "sad", "angry", "neutral"]
 EMOTIONS_TO_IDX = {emotion: idx for idx, emotion in enumerate(EMOTIONS)}
-# Map folder numbers to emotion indices (assuming 1-indexed folders)
 FOLDER_TO_IDX = {i+1: i for i in range(len(EMOTIONS))}
 
 class RAFDBDataset(Dataset):
@@ -27,29 +24,24 @@ class RAFDBDataset(Dataset):
         self.emotions = EMOTIONS
         self.folder_to_idx = FOLDER_TO_IDX
         
-        # Base directory for images
         if split == "test":
             self.base_dir = os.path.join(root_dir, 'DATASET', 'test')
-        elif split == "train" or split == "val":
+        elif split == "train":
             self.base_dir = os.path.join(root_dir, 'DATASET', 'train')
         
-        # Path to label CSV file
         if split == "test":
             self.label_file = os.path.join(root_dir, 'DATASET', 'test_labels.csv')
         else:
             self.label_file = os.path.join(root_dir, 'DATASET', 'train_labels.csv')
         
-        # Parse CSV if it exists, otherwise use folder structure
         self.images = []
         self.labels = []
         
-        # Try to read labels from CSV first
         if os.path.exists(self.label_file):
             self._load_from_csv()
         else:
             self._load_from_folders()
         
-        # If split is "val", create a validation set from train data
         if split == "val" and self.images:
             train_images, val_images, train_labels, val_labels = train_test_split(
                 self.images, self.labels, test_size=0.2, random_state=42, stratify=self.labels
@@ -66,29 +58,24 @@ class RAFDBDataset(Dataset):
         """Load image paths and labels from CSV file."""
         try:
             df = pd.read_csv(self.label_file)
-            # Adjust column names based on your CSV structure
             for _, row in df.iterrows():
-                # Assuming CSV has 'filename' and 'label' columns - adjust if different
                 filename = row.get('filename', row.get('image', ''))
                 label = row.get('label', row.get('emotion', 0))
                 
-                # Check if the file exists
                 img_path = os.path.join(self.base_dir, str(label), filename)
                 if not os.path.exists(img_path):
-                    # Try another possible path format
                     img_path = os.path.join(self.base_dir, filename)
                 
                 if os.path.exists(img_path):
                     self.images.append(img_path)
-                    self.labels.append(int(label) - 1)  # Convert 1-7 to 0-6
+                    self.labels.append(int(label) - 1) 
         except Exception as e:
             print(f"Error loading CSV: {e}")
-            # Fallback to folder structure
             self._load_from_folders()
     
     def _load_from_folders(self):
         """Load images and labels from folder structure."""
-        for emotion_folder in range(1, 8):  # 1-7 folders
+        for emotion_folder in range(1, 8): 
             folder_path = os.path.join(self.base_dir, str(emotion_folder))
             if os.path.exists(folder_path):
                 for img_file in os.listdir(folder_path):
@@ -113,19 +100,15 @@ class RAFDBDataset(Dataset):
 # Define transforms
 data_transforms = {
     "train": transforms.Compose([
-        transforms.Resize((112, 112)),
+        transforms.Resize((100,100)),
         transforms.RandomHorizontalFlip(),
         transforms.RandomRotation(10),
         transforms.ColorJitter(brightness=0.2, contrast=0.2),
-        transforms.RandomResizedCrop(size=92, scale=(0.8, 1.0)),
-        transforms.Resize((48, 48)),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
     ]),
     "test": transforms.Compose([
-        transforms.Resize((112, 112)),
-        transforms.CenterCrop(92),
-        transforms.Resize((48, 48)),
+        transforms.Resize((100,100)),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
     ]),
