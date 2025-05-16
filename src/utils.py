@@ -66,7 +66,7 @@ def train_model(
             f"Epoch {epoch + 1}/{num_epochs} completed in {epoch_time // 60:.0f} minutes and {epoch_time % 60:.0f} seconds"
         )
 
-        torch.save(model.state_dict(), f"{type(model).__name__}_epoch_{epoch+1}.pth")
+        torch.save(model.state_dict(), f"..\\models\\{type(model).__name__}_epoch_{epoch+1}.pth")
 
 
 def evaluate_model(

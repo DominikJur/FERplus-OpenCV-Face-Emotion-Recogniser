@@ -7,6 +7,7 @@ from sklearn.model_selection import train_test_split
 
 
 EMOTIONS = ["angry", "disgust", "fear", "happy", "neutral", "sad", "surprise"]
+IDX_TO_EMOTIONS = {idx: emotion for idx, emotion in enumerate(EMOTIONS)}
 EMOTIONS_TO_IDX = {emotion: idx for idx, emotion in enumerate(EMOTIONS)}
 
 
