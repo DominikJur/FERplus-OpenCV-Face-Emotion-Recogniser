@@ -2,6 +2,16 @@
 
 A real-time facial emotion recognition system that uses computer vision and deep learning to detect and classify facial expressions into seven basic emotions.
 
+## 📸 Demo
+
+![Facial Emotion Recognition - Happy](demo/happy.png)
+*Detecting a happy expression with high confidence*
+
+![Facial Emotion Recognition - Surprise](demo/surprise.png)
+*Recognizing surprised emotion in real-time*
+
+![Facial Emotion Recognition - Multiple](demo/multi.png)
+*Detecting emotions for multiple people simultaneously*
 ## Overview
 
 This project uses a pre-trained ResNet18 model and OpenCV to recognize facial emotions in real-time from a webcam feed. The system can detect faces and classify emotions with reasonable accuracy.

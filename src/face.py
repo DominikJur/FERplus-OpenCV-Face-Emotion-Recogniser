@@ -9,7 +9,7 @@ from PIL import Image
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 
-from src.dataset import EMOTIONS_TO_IDX, data_transforms
+from src.dataset_RAF_DB import EMOTIONS_TO_IDX, data_transforms
 from src.utils import get_model
 
 
